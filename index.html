@@ -13,20 +13,18 @@
       <h1>Avatar: the Best Memory</h1>
       <p class="player-name">Player One</p>
     </header>
-    <section class="board">
-      <!-- <div class="card">
-        <div class="front"></div>
-        <img class="back" src="" alt="" />
-      </div> -->
+    <main class="board">
       <div class="card">
         <div class="inner" onclick="flipCard(this)">
           <div class="front"></div>
           <img class="back" src="" alt="" />
         </div>
       </div>
-    </section>
+    </main>
     <footer>
-      <button class="expand-collapse">Collapse</button>
+      <button class="expand-collapse" onclick="expandCollapse()">
+        Collapse
+      </button>
       <div class="content">
         <div>
           <label for="game-board-size">Game board size:</label>
@@ -37,8 +35,12 @@
             <option value="10">10</option>
           </select>
         </div>
-        <button class="game-toggle">Start Game</button>
+        <button class="game-toggle" onclick="toggleGame()">Start Game</button>
       </div>
     </footer>
+    <dialog id="dialog-box">
+      <h2>It's a match!</h2>
+      <button autofocus onclick="closeDialog()">Next</button>
+    </dialog>
   </body>
 </html>

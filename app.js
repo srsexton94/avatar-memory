@@ -196,6 +196,10 @@ let isPlayer1 = true;
 let cardsFlipped = [];
 let numCardsFlipped = 0;
 
+const mainContent = document.querySelector("main");
+const footer = document.querySelector("footer");
+const dialog = document.getElementById("dialog-box");
+
 function togglePlayer() {
   const [name1, name2] = ["Player One", "Player Two"];
   const playerNameEl = document.querySelector(".player-name");
@@ -218,6 +222,19 @@ function flipAllCardsOver() {
   });
 }
 
+function openDialog() {
+  mainContent.setAttribute("inert", "");
+  footer.setAttribute("inert", "");
+  dialog.showModal();
+}
+
+function closeDialog() {
+  dialog.close();
+
+  togglePlayer();
+  flipAllCardsOver();
+}
+
 function flipCard(card) {
   const cardSrc = card.querySelector("img").getAttribute("src");
   cardsFlipped.push(cardSrc);
@@ -225,26 +242,23 @@ function flipCard(card) {
 
   if (cardsFlipped.length === 2) {
     if (cardsFlipped[0] === cardsFlipped[1]) {
-      console.log("It's a match!");
+      dialog.querySelector("h2").innerHTML = "It's a match!";
     } else {
-      console.log("Not a match!");
+      dialog.querySelector("h2").innerHTML = "Not a match!";
     }
-
-    togglePlayer();
-    flipAllCardsOver();
+    openDialog();
   }
 }
 
 setUpBoard();
 
 document
-  .querySelector(".expand-collapse")
-  .addEventListener("click", expandCollapse);
-
-document.querySelector(".game-toggle").addEventListener("click", toggleGame);
-
-document
   .querySelector("#game-board-size")
   .addEventListener("change", (event) => {
     setUpBoard(event.target.value);
   });
+
+dialog.addEventListener("close", (_event) => {
+  mainContent.removeAttribute("inert");
+  footer.removeAttribute("inert");
+});
