@@ -63,6 +63,9 @@ function setUpBoard(boardSize = 4) {
   if (boardSize > 8) {
     cardEl.style.height = "5vw";
     cardEl.style.width = "5vw";
+  } else {
+    cardEl.style.height = "10vw";
+    cardEl.style.width = "10vw";
   }
 
   for (let i = 0; i < numberOfCopies; i++) {
@@ -115,7 +118,7 @@ function toggleGame() {
   }
 }
 
-setUpBoard(); // 4, 6, 8, 10
+setUpBoard();
 
 document
   .querySelector(".expand-collapse")
