@@ -202,6 +202,7 @@ function toggleGame() {
   } else {
     gameToggleEl.innerHTML = "Start Game";
     selectEl.disabled = false;
+    selectEl.value = 4;
     setUpBoard();
     main.setAttribute("inert", "");
   }
