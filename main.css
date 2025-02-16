@@ -1,3 +1,41 @@
-h1 {
-  background-color: rgb(243, 0, 122);
+/* BOARD */
+.board {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: auto;
+  grid-gap: 1rem;
+  border: 1px solid black;
+  width: max-content;
+  margin: auto;
+  padding: 1rem;
+}
+
+.board .card {
+  height: 10vw;
+  width: 10vw;
+  border: 1px solid black;
+  border-radius: 0.5rem;
+}
+
+/* MEDIA QUERIES */
+@media only screen and (max-width: 47em) {
+  .board {
+    grid-gap: 0.5rem;
+    padding: 0.5rem;
+  }
+  .board .card {
+    height: 6rem;
+    width: 6rem;
+  }
+}
+
+@media only screen and (max-width: 36em) {
+  .board {
+    grid-gap: 0.25rem;
+    padding: 0.25rem;
+  }
+  .board .card {
+    height: 3rem;
+    width: 3rem;
+  }
 }
