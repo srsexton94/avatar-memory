@@ -162,17 +162,6 @@ function setUpBoard(boardSize = 4) {
   boardEl.style["grid-template-columns"] = `repeat(${boardSize}, 1fr)`;
 }
 
-function togglePlayer() {
-  const [name1, name2] = ["Player One", "Player Two"];
-  const playerNameEl = document.querySelector(".player-name");
-
-  if (playerNameEl.innerHTML === name1) {
-    playerNameEl.innerHTML = name2;
-  } else {
-    playerNameEl.innerHTML = name1;
-  }
-}
-
 function expandCollapse() {
   const footerEl = document.querySelector("footer");
   const buttonEl = document.querySelector(".expand-collapse");
@@ -203,8 +192,47 @@ function toggleGame() {
   }
 }
 
+let isPlayer1 = true;
+let cardsFlipped = [];
+let numCardsFlipped = 0;
+
+function togglePlayer() {
+  const [name1, name2] = ["Player One", "Player Two"];
+  const playerNameEl = document.querySelector(".player-name");
+
+  if (isPlayer1) {
+    playerNameEl.innerHTML = name2;
+  } else {
+    playerNameEl.innerHTML = name1;
+  }
+  isPlayer1 = !isPlayer1;
+  cardsFlipped = [];
+}
+
+function flipAllCardsOver() {
+  const cardInners = Array.from(document.querySelectorAll(".card .inner"));
+  cardInners.map((cardInner) => {
+    if (cardInner.classList.contains("flipped")) {
+      cardInner.classList.toggle("flipped");
+    }
+  });
+}
+
 function flipCard(card) {
+  const cardSrc = card.querySelector("img").getAttribute("src");
+  cardsFlipped.push(cardSrc);
   card.classList.toggle("flipped");
+
+  if (cardsFlipped.length === 2) {
+    if (cardsFlipped[0] === cardsFlipped[1]) {
+      console.log("It's a match!");
+    } else {
+      console.log("Not a match!");
+    }
+
+    togglePlayer();
+    flipAllCardsOver();
+  }
 }
 
 setUpBoard();
