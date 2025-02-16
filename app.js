@@ -1,4 +1,4 @@
-let images = [
+const images = [
   {
     file: "aang1.webp",
     alt: "Aang softly smiling looking at the sky",
@@ -118,13 +118,13 @@ function shuffleCards(array) {
 }
 
 function pairUpCards(numberOfPairs) {
-  if (images.length < numberOfPairs) {
-    const numToAdd = numberOfPairs - images.length;
-    const cardsToAdd = images.slice(0, numToAdd);
-    images = [...images, ...cardsToAdd];
-    console.log(images.length, numberOfPairs);
+  let copiedImages = images;
+  if (copiedImages.length < numberOfPairs) {
+    const numToAdd = numberOfPairs - copiedImages.length;
+    const cardsToAdd = copiedImages.slice(0, numToAdd);
+    copiedImages = [...copiedImages, ...cardsToAdd];
   }
-  const shuffledImages = shuffleCards(images);
+  const shuffledImages = shuffleCards(copiedImages);
   const cardsToPair = shuffledImages.slice(0, numberOfPairs);
   const pairedCards = [...cardsToPair, ...cardsToPair];
 
@@ -151,8 +151,11 @@ function setUpBoard(boardSize = 4) {
 
   for (let i = 0; i < numberOfCopies; i++) {
     const clonedCard = cardEl.cloneNode(true);
-    clonedCard.style.backgroundImage = `url("assets/${imagePairs[i].file}")`;
-    clonedCard.setAttribute("alt", imagePairs[i].alt);
+    const clonedCardImage = clonedCard.querySelector("img");
+
+    clonedCardImage.setAttribute("src", `assets/${imagePairs[i].file}`);
+    clonedCardImage.setAttribute("alt", imagePairs[i].alt);
+
     boardEl.appendChild(clonedCard);
   }
 
@@ -198,6 +201,10 @@ function toggleGame() {
     gameToggleEl.innerHTML = "Start Game";
     selectEl.disabled = false;
   }
+}
+
+function flipCard(card) {
+  card.classList.toggle("flipped");
 }
 
 setUpBoard();

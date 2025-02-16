@@ -14,7 +14,16 @@
       <p class="player-name">Player One</p>
     </header>
     <section class="board">
-      <div class="card"></div>
+      <!-- <div class="card">
+        <div class="front"></div>
+        <img class="back" src="" alt="" />
+      </div> -->
+      <div class="card">
+        <div class="inner" onclick="flipCard(this)">
+          <div class="front"></div>
+          <img class="back" src="" alt="" />
+        </div>
+      </div>
     </section>
     <footer>
       <button class="expand-collapse">Collapse</button>
