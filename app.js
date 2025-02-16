@@ -1,3 +1,4 @@
+// Assets
 const images = [
   {
     file: "aang1.webp",
@@ -109,6 +110,7 @@ const images = [
   },
 ];
 
+// Setup
 function shuffleCards(array) {
   for (let i = array.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -129,6 +131,13 @@ function pairUpCards(numberOfPairs) {
   const pairedCards = [...cardsToPair, ...cardsToPair];
 
   return shuffleCards(pairedCards);
+}
+
+function createRandomId() {
+  return Math.random()
+    .toString(36)
+    .replace(/[^a-z]+/g, "")
+    .substr(2, 10);
 }
 
 function setUpBoard(boardSize = 4) {
@@ -155,6 +164,7 @@ function setUpBoard(boardSize = 4) {
 
     clonedCardImage.setAttribute("src", `assets/${imagePairs[i].file}`);
     clonedCardImage.setAttribute("alt", imagePairs[i].alt);
+    clonedCard.setAttribute("id", createRandomId());
 
     boardEl.appendChild(clonedCard);
   }
@@ -192,13 +202,14 @@ function toggleGame() {
   }
 }
 
+// Game play
 let isPlayer1 = true;
 let cardsFlipped = [];
 let numCardsFlipped = 0;
 
 const mainContent = document.querySelector("main");
 const footer = document.querySelector("footer");
-const dialog = document.getElementById("dialog-box");
+const dialog = document.querySelector("dialog");
 
 function togglePlayer() {
   const [name1, name2] = ["Player One", "Player Two"];
@@ -235,17 +246,36 @@ function closeDialog() {
   flipAllCardsOver();
 }
 
-function flipCard(card) {
-  const cardSrc = card.querySelector("img").getAttribute("src");
-  cardsFlipped.push(cardSrc);
-  card.classList.toggle("flipped");
+function removeSelectedCards() {
+  const findCard = (id) => document.getElementById(id);
+  const selectedCards = cardsFlipped.map((card) => findCard(card.id));
+
+  selectedCards.forEach((selectedCard) => {
+    selectedCard.innerHTML = "";
+  });
+}
+
+function flipCard(cardInner) {
+  const cardImg = cardInner.querySelector("img");
+
+  const alt = cardImg.getAttribute("alt");
+  const src = cardImg.getAttribute("src");
+  const id = cardInner.parentElement.getAttribute("id");
+
+  cardsFlipped.push({ id, src, alt });
+  cardInner.classList.toggle("flipped");
 
   if (cardsFlipped.length === 2) {
-    if (cardsFlipped[0] === cardsFlipped[1]) {
-      dialog.querySelector("h2").innerHTML = "It's a match!";
-    } else {
-      dialog.querySelector("h2").innerHTML = "Not a match!";
+    const isAMatch = cardsFlipped[0].src === cardsFlipped[1].src;
+
+    dialog.querySelector("h2").innerHTML = isAMatch
+      ? "It's a match!"
+      : "Not a match!";
+
+    if (isAMatch) {
+      removeSelectedCards();
     }
+
     openDialog();
   }
 }

@@ -106,12 +106,19 @@ footer .content {
 
 /* DIALOG */
 
-dialog::backdrop {
-  background: rgba(0, 0, 0, 0.7);
+dialog {
+  border-radius: 0.5rem;
+  animation: zoom-out 0.5s ease-out;
 }
 
-dialog {
-  animation: zoom-out 0.5s ease-out;
+dialog .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+dialog::backdrop {
+  background: rgba(0, 0, 0, 0.7);
 }
 
 dialog[open] {

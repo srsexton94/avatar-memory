@@ -38,9 +38,15 @@
         <button class="game-toggle" onclick="toggleGame()">Start Game</button>
       </div>
     </footer>
-    <dialog id="dialog-box">
-      <h2>It's a match!</h2>
-      <button autofocus onclick="closeDialog()">Next</button>
+    <dialog>
+      <div class="content">
+        <h2>It's a match!</h2>
+        <div class="matched-cards">
+          <img src="" alt="" />
+          <img src="" alt="" />
+        </div>
+        <button autofocus onclick="closeDialog()">Next</button>
+      </div>
     </dialog>
   </body>
 </html>
