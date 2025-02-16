@@ -55,6 +55,11 @@ header {
   transform-style: preserve-3d;
 }
 
+.board .card .inner:focus {
+  outline: 0.25rem solid rgb(3, 224, 244);
+  outline-offset: 0.25rem;
+}
+
 .board .card .inner.flipped {
   transform: rotateY(180deg);
 }

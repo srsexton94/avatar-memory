@@ -255,7 +255,9 @@ function removeSelectedCards() {
   selectedCards.forEach((selectedCard) => (selectedCard.innerHTML = ""));
 }
 
-function flipCard(cardInner) {
+function flipCard(event, cardInner) {
+  if (event.key && event.key !== "Enter" && event.key !== " ") return;
+
   const cardImg = cardInner.querySelector("img");
 
   const alt = cardImg.getAttribute("alt");

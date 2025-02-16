@@ -18,7 +18,13 @@
     </header>
     <main inert class="board">
       <div class="card">
-        <div class="inner" tabindex="0" onclick="flipCard(this)">
+        <div
+          class="inner"
+          role="button"
+          tabindex="0"
+          onkeydown="flipCard(event, this)"
+          onclick="flipCard(event, this)"
+        >
           <div class="front"></div>
           <img class="back" src="" alt="" />
         </div>
