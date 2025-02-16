@@ -3,6 +3,7 @@ function cloneCard(boardSize = 4) {
   const cardEl = document.querySelector(".card");
   const boardEl = document.querySelector(".board");
 
+  cardEl.style.backgroundImage = "url('assets/aang1.webp')";
   boardEl.innerHTML = "";
 
   if (boardSize > 8) {
@@ -59,10 +60,16 @@ function toggleGame() {
   }
 }
 
-cloneCard(); // 4, 6, 8, 10, 12, 14
+cloneCard(); // 4, 6, 8, 10
 
 document
   .querySelector(".expand-collapse")
   .addEventListener("click", expandCollapse);
 
 document.querySelector(".game-toggle").addEventListener("click", toggleGame);
+
+document
+  .querySelector("#game-board-size")
+  .addEventListener("change", (event) => {
+    cloneCard(event.target.value);
+  });

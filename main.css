@@ -18,8 +18,9 @@ header {
   grid-gap: 1rem;
   border: 1px solid black;
   width: max-content;
-  margin: auto;
+  margin: 0 auto 2rem;
   padding: 1rem;
+  overflow: scroll;
 }
 
 .board .card {
@@ -27,6 +28,8 @@ header {
   width: 10vw;
   border: 1px solid black;
   border-radius: 0.5rem;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
 }
 
 /* FOOTER */
