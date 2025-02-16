@@ -10,6 +10,15 @@ header {
   padding: 0 2rem;
 }
 
+.player-names {
+  list-style: none;
+  padding: 0;
+}
+
+.player-names .selected {
+  font-weight: bold;
+}
+
 /* BOARD */
 .board {
   display: grid;

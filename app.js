@@ -212,14 +212,11 @@ const footer = document.querySelector("footer");
 const dialog = document.querySelector("dialog");
 
 function togglePlayer() {
-  const [name1, name2] = ["Player One", "Player Two"];
-  const playerNameEl = document.querySelector(".player-name");
+  const playerNames = document.querySelector(".player-names");
 
-  if (isPlayer1) {
-    playerNameEl.innerHTML = name2;
-  } else {
-    playerNameEl.innerHTML = name1;
-  }
+  Array.from(playerNames.querySelectorAll("li")).forEach((name) => {
+    name.classList.toggle("selected");
+  });
   isPlayer1 = !isPlayer1;
   cardsFlipped = [];
 }
@@ -250,9 +247,7 @@ function removeSelectedCards() {
   const findCard = (id) => document.getElementById(id);
   const selectedCards = cardsFlipped.map((card) => findCard(card.id));
 
-  selectedCards.forEach((selectedCard) => {
-    selectedCard.innerHTML = "";
-  });
+  selectedCards.forEach((selectedCard) => (selectedCard.innerHTML = ""));
 }
 
 function flipCard(cardInner) {
@@ -261,6 +256,8 @@ function flipCard(cardInner) {
   const alt = cardImg.getAttribute("alt");
   const src = cardImg.getAttribute("src");
   const id = cardInner.parentElement.getAttribute("id");
+
+  if (!!cardsFlipped[0] && cardsFlipped[0].id === id) return;
 
   cardsFlipped.push({ id, src, alt });
   cardInner.classList.toggle("flipped");
@@ -273,6 +270,10 @@ function flipCard(cardInner) {
       : "Not a match!";
 
     if (isAMatch) {
+      const scoreCounter = document.querySelector(
+        `.name${isPlayer1 ? 1 : 2} span`
+      );
+      scoreCounter.innerHTML = parseInt(scoreCounter.innerHTML) + 1;
       removeSelectedCards();
     }
 
