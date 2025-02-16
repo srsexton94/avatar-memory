@@ -45,8 +45,24 @@ function expandCollapse() {
   }
 }
 
-cloneCard(4); // 4, 6, 8, 10, 12, 14
+function toggleGame() {
+  const gameToggleEl = document.querySelector(".game-toggle");
+  const selectEl = document.querySelector("#game-board-size");
+
+  if (gameToggleEl.innerHTML === "Start Game") {
+    gameToggleEl.innerHTML = "Quit Game";
+    selectEl.disabled = true;
+    expandCollapse();
+  } else {
+    gameToggleEl.innerHTML = "Start Game";
+    selectEl.disabled = false;
+  }
+}
+
+cloneCard(); // 4, 6, 8, 10, 12, 14
 
 document
   .querySelector(".expand-collapse")
   .addEventListener("click", expandCollapse);
+
+document.querySelector(".game-toggle").addEventListener("click", toggleGame);
