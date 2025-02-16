@@ -16,22 +16,21 @@
         <li class="name2">Player Two: <span>0</span></li>
       </ul>
     </header>
-    <main class="board">
+    <main inert class="board">
       <div class="card">
-        <div class="inner" onclick="flipCard(this)">
+        <div class="inner" tabindex="0" onclick="flipCard(this)">
           <div class="front"></div>
           <img class="back" src="" alt="" />
         </div>
       </div>
     </main>
     <footer>
-      <button class="expand-collapse" onclick="expandCollapse()">
-        Collapse
-      </button>
+      <button class="expand-collapse">Collapse</button>
       <div class="content">
         <div>
           <label for="game-board-size">Game board size:</label>
           <select name="game-board-size" id="game-board-size">
+            <option value="2">2</option>
             <option value="4">4</option>
             <option value="6">6</option>
             <option value="8">8</option>

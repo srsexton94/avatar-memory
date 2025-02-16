@@ -191,14 +191,19 @@ function expandCollapse() {
 function toggleGame() {
   const gameToggleEl = document.querySelector(".game-toggle");
   const selectEl = document.querySelector("#game-board-size");
+  const main = document.querySelector("main");
 
   if (gameToggleEl.innerHTML === "Start Game") {
     gameToggleEl.innerHTML = "Quit Game";
     selectEl.disabled = true;
+    main.removeAttribute("inert");
+    document.querySelector(".board .card .inner").focus();
     expandCollapse();
   } else {
     gameToggleEl.innerHTML = "Start Game";
     selectEl.disabled = false;
+    setUpBoard();
+    main.setAttribute("inert", "");
   }
 }
 
@@ -288,6 +293,10 @@ document
   .addEventListener("change", (event) => {
     setUpBoard(event.target.value);
   });
+
+document
+  .querySelector(".expand-collapse")
+  .addEventListener("click", expandCollapse);
 
 dialog.addEventListener("close", (_event) => {
   mainContent.removeAttribute("inert");
