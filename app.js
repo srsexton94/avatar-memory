@@ -294,6 +294,14 @@ function flipCard(event, cardInner) {
       ? "It's a match!"
       : "Not a match!";
 
+    const selectedCards = Array.from(
+      document.querySelectorAll(".selected-cards img")
+    );
+    selectedCards.forEach((selectedCard, i) => {
+      selectedCard.setAttribute("src", cardsFlipped[i].src);
+      selectedCard.setAttribute("alt", cardsFlipped[i].alt);
+    });
+
     if (isAMatch) {
       const scoreCounter = document.querySelector(
         `.name${isPlayer1 ? 1 : 2} span`
