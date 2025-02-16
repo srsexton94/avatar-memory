@@ -241,11 +241,15 @@ function openDialog() {
   dialog.showModal();
 }
 
-function closeDialog() {
-  dialog.close();
+function closeDialog(button) {
+  if (button.innerHTML === "New Game") {
+    location.reload();
+  } else {
+    dialog.close();
 
-  togglePlayer();
-  flipAllCardsOver();
+    togglePlayer();
+    flipAllCardsOver();
+  }
 }
 
 function removeSelectedCards() {
@@ -253,6 +257,20 @@ function removeSelectedCards() {
   const selectedCards = cardsFlipped.map((card) => findCard(card.id));
 
   selectedCards.forEach((selectedCard) => (selectedCard.innerHTML = ""));
+}
+
+function finishGame() {
+  const [score1, score2] = [
+    parseInt(document.querySelector(`.name1 span`).innerHTML),
+    parseInt(document.querySelector(`.name2 span`).innerHTML),
+  ];
+
+  dialog.querySelector("h2").innerHTML =
+    score1 === score2
+      ? "It's a tie!"
+      : `Player ${score1 > score2 ? "One" : "Two"} Wins!`;
+  dialog.querySelector("button").innerHTML = "New Game";
+  openDialog();
 }
 
 function flipCard(event, cardInner) {
@@ -282,12 +300,22 @@ function flipCard(event, cardInner) {
       );
       scoreCounter.innerHTML = parseInt(scoreCounter.innerHTML) + 1;
       removeSelectedCards();
+
+      const isFinalMatch = Array.from(
+        document.querySelectorAll(".inner")
+      ).every((card) => card.className.includes("flipped"));
+
+      if (isFinalMatch) {
+        finishGame();
+        return;
+      }
     }
 
     openDialog();
   }
 }
 
+// Init
 setUpBoard();
 
 document
